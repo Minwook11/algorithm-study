@@ -23,7 +23,7 @@ win_nums = [31, 10, 45, 1, 6, 19]
 
 print(solution(lottos, win_nums))
 
-# Other programmer's solution
+# Other programmer's solution -- Most liked solution
 #def solution(lottos, win_nums):
 #
 #    rank=[6,6,5,4,3,2,1]
