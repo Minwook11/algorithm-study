@@ -2,21 +2,78 @@
 
 def solution(genres, plays):
     answer = []
-    playsDict = {}
-    d = {}
-
+    dic={}
     for i in range(len(genres)):
-        genre = genres[i]
-        play = plays[i]
-        playsDict[genre] = play
-        d[genre] = d.get(genre, []) + [ (play, i) ]
+        if genres[i] in dic:
+            dic[genres[i]].append([plays[i],i])
+        else : 
+            dic[genres[i]] = [[plays[i],i]]
 
-    genreSort = sorted(playsDict.items(), key = lambda x: x[1], reverse = True)
+    genre_rank ={}
+    for genre in dic.keys():
+        songs = dic[genre]
+        plays_sum = 0
+        for song in songs:
+            plays_sum+=song[0]
+        genre_rank[genre] = plays_sum
+    genre_rank = sorted(genre_rank.items(), key=lambda x: x[1],reverse=True)
 
-    for (genre, totlaPlay) in genreSort:
-        d[genre] = sorted(d[genre], key = lambda x: (-x[0], x[1]))
-        answer += [ idx for (play, idx) in d[genre][:2] ]
+    for genre in genre_rank:
+        song_rank=sorted(dic[genre[0]], key=lambda x:(-x[0],x[1]))
+        best_two = 0
+        for song in song_rank:
+            answer.append(song[1])
+            best_two +=1
+            if best_two == 2:
+                break
 
     return answer
 
 print(solution(["classic", "pop", "classic", "classic", "pop"], [500, 600, 150, 800, 2500]))
+
+# Other programmer's solution -- OOP Style solution
+
+# def solution(genres, plays):
+#     answer = []
+#     dic = {}
+#     album_list = []
+#     for i in range(len(genres)):
+#         dic[genres[i]] = dic.get(genres[i], 0) + plays[i]
+#         album_list.append(album(genres[i], plays[i], i))
+
+#     dic = sorted(dic.items(), key=lambda dic:dic[1], reverse=True)
+#     album_list = sorted(album_list, reverse=True)
+
+
+
+#     while len(dic) > 0:
+#         play_genre = dic.pop(0)
+#         print(play_genre)
+#         cnt = 0;
+#         for ab in album_list:
+#             if play_genre[0] == ab.genre:
+#                 answer.append(ab.track)
+#                 cnt += 1
+#             if cnt == 2:
+#                 break
+
+#     return answer
+
+# class album:
+#     def __init__(self, genre, play, track):
+#         self.genre = genre
+#         self.play = play
+#         self.track = track
+
+#     def __lt__(self, other):
+#         return self.play < other.play
+#     def __le__(self, other):
+#         return self.play <= other.play
+#     def __gt__(self, other):
+#         return self.play > other.play
+#     def __ge__(self, other):
+#         return self.play >= other.play
+#     def __eq__(self, other):
+#         return self.play == other.play
+#     def __ne__(self, other):
+#         return self.play != other.play
