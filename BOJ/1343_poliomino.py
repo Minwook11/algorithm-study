@@ -8,22 +8,16 @@ board = input()
 if board.count('X') % 2 != 0:
     print(-1)
 else:
-    stack_space = []
-    answer, count = '', 0
-    for space in board:
-        if space == 'X':
-            stack_space.append(space)
-        elif space =='.':
-            if len(stack_space) % 2 != 0:
-                answer = -1
-                break
-            else:
-                answer += '.'
-                
-        if len(stack_space) == 4:
-            answer += 'AAAA'
-            stack_space = []
-        elif len(stack_space) == 2:
-            answer += 'BB'
-            stack_space = []
-    print(answer)
+    board = board.replace('XXXX', 'AAAA')
+    board = board.replace('XX', 'BB')
+    print(board)
+    
+# board = input()
+
+# board = board.replace('XXXX', 'AAAA')
+# board = board.replace('XX', 'BB')
+
+# if 'X' in board:
+#     print(-1)
+# else:
+#     print(board)
