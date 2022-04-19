@@ -6,12 +6,9 @@ for _ in range(rope_num):
     ropes.append(int(input()))
 ropes.sort(reverse=True)
 
-answer = ropes[0]
-for i in range(1, len(ropes)):
-    target = ropes[:i]
-    available = min(target) * len(target)
-    
-    if available > answer:
-        answer = available
-        
+answer = 0
+for i in range(len(ropes)):
+    temp = ropes[i] * (i+1)
+    if temp > answer: answer = temp
+
 print(answer)
