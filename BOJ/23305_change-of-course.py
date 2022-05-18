@@ -5,16 +5,18 @@ student_num = int(input())
 registered = list(map(int, input().split()))
 wanted = list(map(int, input().split()))
 
-temp_data = sorted(registered + wanted)
-count, index = 0, 0
-while True:
-    if temp_data[index] == temp_data[index + 1]:
-        count += 1
-        index += 2
+temp_dict = dict()
+for item in registered:
+    if item in temp_dict:
+        temp_dict[item] += 1
     else:
-        index += 1
+        temp_dict[item] = 1
 
-    if index >= len(temp_data) - 1:
-        break
+count = 0
+for item in wanted:
+    if item in temp_dict:
+        if temp_dict[item] > 0:
+            count += 1
+            temp_dict[item] -= 1
 
-print((len(temp_data) // 2) - count)
+print(student_num - count)
