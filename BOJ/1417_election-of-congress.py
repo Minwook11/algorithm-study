@@ -11,13 +11,13 @@ else:
     answer = 0
     current = supporters.pop(0)
     supporters.sort(reverse=True)
-    print(supporters)
-    for supporter in supporters:
-        if current > supporter:
-            break
+    while True:
+        if supporters[0] >= current:
+            current += 1
+            supporters[0] -= 1
+            answer += 1
+            supporters.sort(reverse=True)
         else:
-            step = ((current + supporter) // 2) + 1 - current
-            answer += step
-            current += step
-
+            break
+        
     print(answer)
