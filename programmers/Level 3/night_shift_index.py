@@ -3,23 +3,40 @@
 
 def solution(n, works):
     if len(works) > 1:
-        entire_amount = sum(works)
-        after_worked = entire_amount - n
-        if after_worked <= 0:
-            return 0
-        valanced_val, remain = divmod(after_worked, len(works))
-        reamin_work_amount = [ valanced_val for _ in range(len(works))]
-        if remain > 0:
-            for idx in range(len(reamin_work_amount)):
-                reamin_work_amount[idx] += 1
-                remain -= 1
+        index = 0
+        while True:
+            if index == 50:
+                break
 
-                if remain == 0:
-                    break
+            abs_remain_list = sorted(list(set(works)), reverse=True)
+            print(abs_remain_list)
+            if len(abs_remain_list) > 1:
+                largest, larger = abs_remain_list[0], abs_remain_list[1]
+                worked = largest - larger
+            else:
+                largest, larger = abs_remain_list[0], abs_remain_list[0]
+                worked = 1
 
-        return sum([i ** 2 for i in reamin_work_amount])
+            if largest == 0:
+                break
+            print(f"works list : {works}, largest : {largest}, larger : {larger}")
+
+            print(f"left hours : {n}, worked : {worked}")
+            if n >= worked:
+                n -= worked
+                works[works.index(largest)] -= worked
+            else:
+                works[works.index(largest)] -= n
+            print(f"left work : {works}")
+            if n == 0:
+                break
+
+            index += 1
+        print(f"{index} 번 반복")
+        return sum([i**2 for i in works])
     else:
-        left_work = works[0] - n if works[0] - n >= 0 else 0
-        return left_work ** 2
+        remain = works[0] - n if works[0] > n else 0
 
-print(solution(3, [1, 1]))
+        return remain ** 2
+
+print(solution(4, [4,3,3]))
