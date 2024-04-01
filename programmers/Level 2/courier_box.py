@@ -3,30 +3,16 @@
 import time
 
 def solution(order):
-    answer = 0
-    sub_belt = []
+    stack = []
+    length = len(order)
+    index = 0
+    for num in range(1, length + 1):
+        stack.append(num)
 
-    for box_item in range(1, len(order) + 1):
-        if box_item == order[0]:
-            answer += 1
-            order.pop(0)
-        else:
-            if sub_belt:
-                if order[0] == sub_belt[-1]:
-                    answer += 1
-                    sub_belt.pop()
-                    order.pop(0)
-                else:
-                    sub_belt.append(box_item)
-            else:
-                sub_belt.append(box_item)
+        while stack and stack[-1] == order[index]:
+            stack.pop()
+            index += 1
 
-    for sub_belt_box, order_box in zip(sub_belt[::-1], order):
-        if sub_belt_box == order_box:
-            answer += 1
-        else:
-            break
+    return index
 
-    return answer
-
-print(solution([5,4,3,2,1]))
+print(solution([1,2,4,3,5]))
