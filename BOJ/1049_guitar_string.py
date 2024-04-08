@@ -15,16 +15,14 @@ for _ in range(M):
 
 most_cheap_set, most_cheap_single = min(set_price_list), min(single_price_list)
 
-# 6개 세트 판단
-if most_cheap_set > 0 and most_cheap_set < most_cheap_single * 6:
+if most_cheap_set > most_cheap_single * 6:
+    answer = N * most_cheap_single
+else:
     answer += N_set * most_cheap_set
-else:
-    answer += N_set * 6 * most_cheap_single
 
-# 낱개 판단
-if most_cheap_set > 0 and most_cheap_set < most_cheap_single * N_single:
-    answer += 1 * most_cheap_set
-else:
-    answer += N_single * most_cheap_single
+    if most_cheap_set < most_cheap_single * N_single:
+        answer += 1 * most_cheap_set
+    else:
+        answer += N_single * most_cheap_single
 
 print(answer)
