@@ -19,7 +19,5 @@ for key, value in pre_define_counter.items():
     for char, count in value.items():
         answer_hamming_value += count
 
-print(pre_define_counter)
-
 print(answer_dna)
 print(answer_hamming_value)
