@@ -2,30 +2,17 @@
 
 def solution(numbers):
     answer = []
+
     for number in numbers:
-        current_bin = bin(number)[2:]
+        bin_number = list('0' + bin(number)[2:])
+        idx = ''.join(bin_number).rfind('0')
+        bin_number[idx] = '1'
         
-        i = 1
-        while True:
-            next_number = number + i
-            next_bin = bin(next_number)[2:]
-            if len(next_bin) != len(current_bin):
-                for _ in range(len(next_bin) - len(current_bin)):
-                    current_bin = "0" + current_bin
-
-            diff_count = 0
-            for c, n in zip(current_bin[::-1], next_bin[::-1]):
-                if c != n:
-                    diff_count += 1
-                
-                if diff_count > 2:
-                    break
-            if diff_count < 3:
-                answer.append(next_number)
-                break
-
-            i += 1
+        if number % 2 == 1:
+            bin_number[idx+1] = '0'
+        
+        answer.append(int(''.join(bin_number), 2))
 
     return answer
 
-print(solution([312, 11, 7, 5, 3, 27, 75, 10, 12, 26, 324, 5236]))
+print(solution([2, 7]))
