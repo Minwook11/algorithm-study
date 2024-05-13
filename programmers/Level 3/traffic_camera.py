@@ -2,20 +2,13 @@
 
 def solution(routes):
     answer = 0
+    routes.sort(key=lambda x: x[1]) # routes를 차량이 나간 지점 (진출) 기준으로 정렬
+    camera = -30001 # -30001부터 카메라 위치를 찾습니다.
 
-    available_position = set()
-    for route in sorted(routes, key=lambda x:x[0]):
-        # print(route)
-        input_list = [i for i in range(route[0], route[1] + 1)]
-        # print(available_position)
-        check_res = available_position.intersection(set(input_list))
-        # print(check_res)
-        if check_res:
-            available_position = check_res
-        else:
+    for route in routes:
+        if camera < route[0]:
             answer += 1
-            available_position = set(input_list)
-
+            camera = route[1]
     return answer
-
+    
 print(solution([[-20,-15], [-14,-5], [-18,-13], [-5,-3]]))
